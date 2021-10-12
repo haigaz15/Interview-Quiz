@@ -1,0 +1,125 @@
+
+.Candidates{
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    
+    background: #F9FCFF;
+}
+
+.LeftMenu{
+    height: 175.9980010986328px;
+    width: 188px;
+    left: 40px;
+    top: 40.00201416015625px;
+    border-radius: 0px;
+    
+
+}
+
+.EasyIntrCont{
+    
+    height: 19px;
+    width: 188px;
+    position: absolute;
+    left: 3.12%;
+    right: 87.03%;
+    top: 5%;
+    bottom: 92.62%;
+    
+}
+
+.EasyIntr{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: #4E65C4;
+}
+
+
+
+.CandidatesCont{
+    position: absolute;
+    left: 3.12%;
+    right: 82.19%;
+    top: 18.25%;
+    bottom: 85%;
+    
+    background: #D5E1FD;
+    
+}
+
+.TextCandCont{
+    height: 19px;
+    width: 82px;
+    left: 91px;
+    top: 95px;
+    border-radius: nullpx;
+    
+}
+
+.Candidates{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+
+    color: #484848;
+}
+
+.QuestionarCont{
+    position: absolute;
+    left: 4.44%;
+    right: 86.09%;
+    top: 18.25%;
+    bottom: 79.38%;
+
+    background-color: #F9FCFF;
+}
+
+.LineBreak{
+    position: relative;
+    height: 0px;
+    width: 188px;
+    top:18.75%;
+    border-radius: 0px;
+    
+}
+
+.settingsCont{
+    position: absolute;
+    left: 4.44%;
+    right: 88.23%;
+    top: 24.62%;
+    bottom: 73%;
+    
+}
+.AddCircle{
+    width:70px;
+    height: 70px;
+    align-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+
+    position: absolute;
+    left: 91.41%;
+    right: 3.12%;
+    top: 87.5%;
+    bottom: 3.75%;
+    background: #4B63CB;
+    border-radius: 50%;
+    
+}
+
+.AddIcond{
+    width: 22.5px;
+    height: 22.5px;
+    margin:0 auto;
+    background:"#FFFFFF;";
+}
