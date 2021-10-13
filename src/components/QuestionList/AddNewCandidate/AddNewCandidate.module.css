@@ -1,0 +1,39 @@
+.header{
+   color:black;
+   font-size: 20px;
+   text-align: left;
+}
+.btn{
+    font-size: 14px;
+    text-transform:capitalize;
+    margin: 2px 15px;
+}
+.email, .fullName, .level, .year, .skill, .note{
+    font-weight: 500;  
+    color: black;
+    font-size: 18px;
+}
+
+.contMain{
+    width: 480px;
+    height: 700px;
+    position: absolute;               
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border:1px solid lightgray;
+    box-shadow: 0px 0px 3px 3px lightgray;
+    background-color: white;
+   
+
+}
+
+
+
+
+
+
+
+
+
+

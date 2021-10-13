@@ -1,7 +1,8 @@
 import Login from './components/Login/Login';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import styles from './App.module.css';
 import QuestionList from './components/QuestionList/QuestionList';
+import AddNewCandidate from "./components/QuestionList/AddNewCandidate/AddNewCandidate"
+
 function App() {
   return (
     <div>
@@ -13,6 +14,9 @@ function App() {
           <Route exact path="/QuestionList">
             {' '}
             <QuestionList />
+          </Route>
+          <Route exact path="/AddNewCandidate">
+            <AddNewCandidate/>
           </Route>
         </Switch>
       </Router>
