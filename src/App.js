@@ -1,7 +1,7 @@
 import Login from './components/Login/Login';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import styles from './App.module.css';
-import QuestionList from './components/Login/QuestionList/QuestionList';
+import QuestionList from './components/QuestionList/QuestionList';
 
 function App() {
   let jsonArr = [];
