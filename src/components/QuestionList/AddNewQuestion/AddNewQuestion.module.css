@@ -1,0 +1,38 @@
+.rootDialog{
+    width: 440px;
+    height: 470px;
+    margin: auto;
+    background: #FFFFFF;
+}
+.title{
+    margin-left: 20px;
+    margin-top: 27px;
+}
+.technicaskills{
+    position: absolute;
+    height: 40px;
+    width: 364px;
+    
+    border-radius: 0px;
+    
+}
+
+.expertiselevel{
+    height: 40px;
+    width: 173px;
+
+}
+
+.textArea{
+    width: 364px;
+    left: 458px;
+
+    border-radius: 0px;
+    
+}
+
+.selectblocks{
+    margin-top:27px;
+    margin-left:20px
+}
+
