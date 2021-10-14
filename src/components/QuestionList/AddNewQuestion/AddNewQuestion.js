@@ -8,49 +8,62 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import { DialogTitle } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import { Select } from '@material-ui/core';
-
+import { Select,Box,OutlinedInput } from '@material-ui/core';
+import styles from './AddNewQuestion.module.css'
 
 
 const AddNewQuestion = (props) => {
     return(
-    <Dialog open={props.open} onClose={props.handleClose}>
-        <DialogTitle>Add new question</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here. We
-            will send updates occasionally.
-          </DialogContentText>
-          <FormControl fullWidth>
+    <Dialog open={props.open} onClose={props.handleClose} >
+        <Box className={styles.title}>
+        <DialogTitle >Add new question</DialogTitle>
+        </Box>
+        <DialogContent className = {styles.rootDialog}>
+        <FormControl fullWidth>
+        <Box className={styles.selectblocks}>
         <InputLabel id="demo-simple-select-label">Technical Skills</InputLabel>
         <Select
+          input={<OutlinedInput />}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={"Technical Skill"}
           label="Technical Skills"
+          className={styles.technicaskills}
           
         >
           <MenuItem value={10}>Ten</MenuItem>
           <MenuItem value={20}>Twenty</MenuItem>
           <MenuItem value={30}>Thirty</MenuItem>
         </Select>
-
+        </Box>
+        <Box className={styles.selectblocks}>
         <InputLabel id="demo-simple-select-label">Expertise Level</InputLabel>
         <Select
+          className={styles.expertiselevel}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={"Technical Skill"}
           label="Technical Skills"
-          
+          input={<OutlinedInput />}
         >
           <MenuItem value={10}>Ten</MenuItem>
           <MenuItem value={20}>Twenty</MenuItem>
           <MenuItem value={30}>Thirty</MenuItem>
         </Select>
+        </Box>
       </FormControl>
-      <TextareaAutosize row = {4}/>
+      <Box className={styles.selectblocks}>
+      <InputLabel id="demo-simple-select-label">Question</InputLabel>
+      <TextareaAutosize minRows={9}className={styles.textArea}/>
+      <Button 
+      variant="contained" 
+      style={{width:"110px" ,marginTop:"50px", backgroundColor:"#4B63CB"}}
+      >
+      Add
+      </Button>
+      </Box>
+
         </DialogContent>
-   
   </Dialog>)
 }
 

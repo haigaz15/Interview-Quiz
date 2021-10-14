@@ -6,7 +6,6 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import styles from './QuestionList.module.css';
 import AddIcon from '@mui/icons-material/Add';
 import { useState } from 'react';
-import AddNewQuestion from './AddNewQuestion/AddNewQuestion'
 import Candidates from './Candidates/Candidates'
 import Questions from './Questions/Questions';
 
@@ -64,13 +63,11 @@ const QuestionList = () => {
         </ListItem>
       </List>
 
-      <Box className = {styles.AddCircle} onClick={addQuestion}>
-      <AddIcon fontSize="large" sx={{ color: "#FFFFFF" }} className = {styles.AddIcond}/> 
-      </Box>
-      {questionareClicked ? <Questions/>:""}
+
+      {questionareClicked ? <Questions open={open} addQuestion = {addQuestion} handleClose={handleClose}/>:""}
       {candidatesClicked ? <Candidates/>:""}
       
-      <AddNewQuestion open = {open} handleClose={handleClose}/>
+      
     </Box> 
     )
 }
