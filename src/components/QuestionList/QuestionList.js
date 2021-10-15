@@ -1,20 +1,73 @@
 import React from 'react';
-import { Typography,Box, ListItem,List, ListItemIcon,ListItemText, } from '@mui/material';
+import { Typography,Box, ListItem,List, ListItemIcon,ListItemText,Button } from '@mui/material';
 import GroupsIcon from '@mui/icons-material/Groups';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import SettingsIcon from '@mui/icons-material/Settings';
 import styles from './QuestionList.module.css';
 import AddIcon from '@mui/icons-material/Add';
 import { useState } from 'react';
-import Candidates from './Candidates/Candidates'
 import Questions from './Questions/Questions';
 
 
 const QuestionList = () => {
     
+    const levels = [
+        {
+          value: 'Junior',
+          label: 'Junior',
+        },
+        {
+          value: 'Intermediate',
+          label: 'Intermediate',
+        },
+        {
+          value: 'Senior',
+          label: 'Senior',
+        },
+      ];
+      
+      const years = [
+        {
+          value: '1',
+          label: '1',
+        },
+        {
+          value: '2',
+          label: '2',
+        },
+        {
+          value: '3',
+          label: '3',
+        },
+      ];
+      
+      const skills = [
+        {
+          value: 'C#',
+          label: 'C#',
+        },
+        {
+          value: 'ReactJs',
+          label: 'ReactJs',
+        },
+        {
+          value: 'OOP',
+          label: 'OOP',
+        },
+      ];
+    const data = [{
+        id:"uuidv4()",
+        question:"something to add",
+        level:1,
+        skill:"C#"
+    }]
+    
     const [open, setOpen] = useState(false);
     const [candidatesClicked,setCandidatesClicked] = useState(false);
     const [questionareClicked , setQuestionareClicked] = useState(false);
+    const [level, setLevel] = useState(' ');
+    const [skill, setSkill] = useState(' ');
+    const [questionData, setQuestionData] = useState(data)
 
     const addQuestion = () => {
         setOpen(true)
@@ -32,6 +85,24 @@ const QuestionList = () => {
     const handleCandidates = () => {
       setCandidatesClicked(true)
       setQuestionareClicked(false)
+    }
+    const handleChangeLevel = (event) => {
+        setLevel(event.target.value);
+      };
+
+    
+    const handleChangeSkill = (event) => {
+        setSkill(event.target.value);
+    }
+    const handleSubmit = (e) =>{
+        setQuestionData(state=>{
+            return [...state,{
+                id:"kjsdfaaasd",
+                question:"something to add new ",
+                level:level,
+                skill:skill
+            }]
+        })
     }
 
     return(
@@ -62,12 +133,20 @@ const QuestionList = () => {
             <ListItemText primary={"Settings"}/>
         </ListItem>
       </List>
-
-
-      {questionareClicked ? <Questions open={open} addQuestion = {addQuestion} handleClose={handleClose}/>:""}
-      {candidatesClicked ? <Candidates/>:""}
-      
-      
+      {questionareClicked ? <Questions
+      className={styles.Questions} 
+      open={open} 
+      skills={skills}
+      levels={levels}
+      skill={skill}
+      level={level}
+      addQuestion = {addQuestion} 
+      handleClose={handleClose}
+      handleChangeLevel = {handleChangeLevel}
+      handleChangeSkill = {handleChangeSkill}
+      handleSubmit = {handleSubmit}
+      data={questionData}
+      />:""}
     </Box> 
     )
 }

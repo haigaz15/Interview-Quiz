@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, TextField,Paper, TextareaAutosize } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
@@ -13,12 +13,12 @@ import styles from './AddNewQuestion.module.css'
 
 
 const AddNewQuestion = (props) => {
+
     return(
     <Dialog open={props.open} onClose={props.handleClose} >
-        <Box className={styles.title}>
+      <Box className = {styles.rootDialog}>
+        <DialogContent className = {styles.contentDialog}>
         <DialogTitle >Add new question</DialogTitle>
-        </Box>
-        <DialogContent className = {styles.rootDialog}>
         <FormControl fullWidth>
         <Box className={styles.selectblocks}>
         <InputLabel id="demo-simple-select-label">Technical Skills</InputLabel>
@@ -29,11 +29,12 @@ const AddNewQuestion = (props) => {
           value={"Technical Skill"}
           label="Technical Skills"
           className={styles.technicaskills}
-          
+          value={props.skill}
+          onChange = {props.handleChangeSkill}
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          {props.skills.map((options) => (
+          <MenuItem key = {options.value} value = {options.value}>{options.label}</MenuItem>
+        ))}
         </Select>
         </Box>
         <Box className={styles.selectblocks}>
@@ -45,10 +46,12 @@ const AddNewQuestion = (props) => {
           value={"Technical Skill"}
           label="Technical Skills"
           input={<OutlinedInput />}
+          value={props.level}
+          onChange = {props.handleChangeLevel}
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          {props.levels.map((options) => (
+          <MenuItem key = {options.value} value = {options.value}>{options.label}</MenuItem>
+        ))}
         </Select>
         </Box>
       </FormControl>
@@ -58,12 +61,13 @@ const AddNewQuestion = (props) => {
       <Button 
       variant="contained" 
       style={{width:"110px" ,marginTop:"50px", backgroundColor:"#4B63CB"}}
+      onClick={props.handleSubmit}
       >
       Add
-      </Button>
+      </Button >
       </Box>
-
         </DialogContent>
+        </Box>
   </Dialog>)
 }
 
