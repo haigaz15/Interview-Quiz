@@ -23,41 +23,8 @@
     transform: translate(-50%, -50%);
     border:1px solid lightgray;
     box-shadow: 0px 0px 3px 3px lightgray;
-    background-color: white;
-   
-
+    background-color: white;  
 }
-
-.AddCircle{
-    width:70px;
-    height: 70px;
-    align-content: center;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: center;
-
-    position: absolute;
-    left: 91.41%;
-    right: 3.12%;
-    top: 87.5%;
-    bottom: 3.75%;
-    background: #4B63CB;
-    border-radius: 50%;
-    
-}
-
-.AddIcond{
-    width: 22.5px;
-    height: 22.5px;
-    margin:0 auto;
-    background:"#FFFFFF;";
-}
-
-
-
-
-
-
 
 
 
