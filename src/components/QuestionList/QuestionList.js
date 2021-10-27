@@ -1,12 +1,13 @@
 import React from 'react';
-import { Typography,Box, ListItem,List, ListItemIcon,ListItemText,Button } from '@mui/material';
+import { Typography,Box, ListItemButton,List, ListItemIcon,ListItemText,Button } from '@mui/material';
 import GroupsIcon from '@mui/icons-material/Groups';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import SettingsIcon from '@mui/icons-material/Settings';
 import styles from './QuestionList.module.css';
 import AddIcon from '@mui/icons-material/Add';
-import { useState } from 'react';
+import { useState,useEffect  } from 'react';
 import Questions from './Questions/Questions';
+import Candidates from './Candidates/Candidates';
 
 
 const QuestionList = () => {
@@ -57,17 +58,21 @@ const QuestionList = () => {
       ];
     const data = [{
         id:"uuidv4()",
-        question:"something to add",
-        level:1,
+        question:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis",
+        level:"Intermediate",
         skill:"C#"
     }]
-    
+
+
+
     const [open, setOpen] = useState(false);
     const [candidatesClicked,setCandidatesClicked] = useState(false);
     const [questionareClicked , setQuestionareClicked] = useState(false);
     const [level, setLevel] = useState(' ');
     const [skill, setSkill] = useState(' ');
+    const [question,setQuestion] = useState(' ');
     const [questionData, setQuestionData] = useState(data)
+    const [filteredData, setFilteredData] = useState(data);
 
     const addQuestion = () => {
         setOpen(true)
@@ -89,7 +94,9 @@ const QuestionList = () => {
     const handleChangeLevel = (event) => {
         setLevel(event.target.value);
       };
-
+    const handleQuestionChange = (e) => {
+      setQuestion(e.target.value);
+    }
     
     const handleChangeSkill = (event) => {
         setSkill(event.target.value);
@@ -98,41 +105,61 @@ const QuestionList = () => {
         setQuestionData(state=>{
             return [...state,{
                 id:"kjsdfaaasd",
-                question:"something to add new ",
+                question:question,
                 level:level,
                 skill:skill
             }]
         })
+        setFilteredData(state=>{
+          return [...state,{
+            id:"kjsdfaaasd",
+            question:question,
+            level:level,
+            skill:skill
+         }]
+       })
+         setLevel('');
+         setSkill('');
+         setQuestion('');
     }
 
+    const handleFilterdData = (filtered)=>{
+      const newfiltered = filtered
+      setFilteredData(newfiltered)
+    }
+
+    useEffect(() => {
+      console.log("Search message inside useEffect: ", filteredData);
+    }, [filteredData]);
+
     return(
-    <Box className = {styles.Candidates}>   
+    <Box className = {styles.root}>
     <List className={styles.LeftMenu}>
     <Box className = {styles.Group134}>
         <Typography className = {styles.EasyIntr} >
             EASY INTERVIEW
             </Typography>
     </Box>
-        <ListItem className= {styles.CandidatesCont} onClick={handleCandidates}>
+        <ListItemButton className= {styles.CandidatesCont} onClick={handleCandidates} >
             <ListItemIcon >
                 <GroupsIcon/>
             </ListItemIcon>
             <ListItemText primary= {"Candidates"}/> 
-        </ListItem>
-        <ListItem className = {styles.QuestionarCont} onClick={handleQuestionare}>
+        </ListItemButton>
+        <ListItemButton  className = {styles.QuestionarCont} onClick={handleQuestionare}>
             <ListItemIcon>
                 <QuestionAnswerIcon/>
             </ListItemIcon>
             <ListItemText primary={"Questionare"}/>
-        </ListItem>
+        </ListItemButton>
         <hr className = {styles.LineBreak}></hr>
-        <ListItem className = {styles.settingsCont}>
+        <ListItemButton  className = {styles.settingsCont}>
             <ListItemIcon>
                 <SettingsIcon/>
             </ListItemIcon>
             <ListItemText primary={"Settings"}/>
-        </ListItem>
-      </List>
+        </ListItemButton>
+      </List> 
       {questionareClicked ? <Questions
       className={styles.Questions} 
       open={open} 
@@ -140,13 +167,30 @@ const QuestionList = () => {
       levels={levels}
       skill={skill}
       level={level}
+      question= {question}
+      handleQuestionChange = {handleQuestionChange}
       addQuestion = {addQuestion} 
       handleClose={handleClose}
       handleChangeLevel = {handleChangeLevel}
       handleChangeSkill = {handleChangeSkill}
       handleSubmit = {handleSubmit}
       data={questionData}
+      filteredData={filteredData}
+      handleFilterdData = {handleFilterdData}
       />:""}
+      {
+        candidatesClicked ? <Candidates
+        open={open} 
+        skills={skills}
+        levels={levels}
+        skill={skill}
+        level={level}
+        handleChangeLevel = {handleChangeLevel}
+        handleChangeSkill = {handleChangeSkill}
+        data={questionData}
+        />:
+        ""
+      }
     </Box> 
     )
 }

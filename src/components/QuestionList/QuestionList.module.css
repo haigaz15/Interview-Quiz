@@ -1,11 +1,11 @@
 
-.Candidates{
+.root{
     left: 0%;
     right: 0%;
     top: 0%;
     bottom: 0%;
     
-    background:#F9FCFF;;;
+    background:#fdfeff;;;
 }
 
 .LeftMenu{
@@ -14,7 +14,7 @@
     left: 40px;
     top: 40.00201416015625px;
     border-radius: 0px;
-    
+    position: fixed;
 
 }
 
@@ -47,10 +47,9 @@
     right: 82.19%;
     top: 18.25%;
     bottom: 85%;
-    
-    background: #D5E1FD;
-    
+    border-radius: 6%;
 }
+
 
 .TextCandCont{
     height: 19px;
@@ -58,7 +57,6 @@
     left: 91px;
     top: 95px;
     border-radius: nullpx;
-    
 }
 
 .Candidates{

@@ -23,13 +23,23 @@
     background:"#FFFFFF;"
     
 }
-.header{
-    margin-left: 294px;
-    margin-top: -70px;
+
+.container{
+    opacity: 0.75;
+    width:900px;
+    margin-left:288px;
+    transform: translate(0%,-15%);
+    
+}
+
+.innerCircul{
+    width: 70px;
+    height: 70px;
+    background: #779FF94D;
+    border-radius: 50%;
 }
 
 .content{
     display: flex;
     margin-bottom: 30px;
 }
-
