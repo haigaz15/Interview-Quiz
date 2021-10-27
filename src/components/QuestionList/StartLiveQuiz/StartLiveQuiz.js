@@ -25,28 +25,15 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const lightTheme = createTheme({ palette: { mode: 'light' } });
 
-const questions = [
-  {
-    value: 'What is Js',
-    label: 'What is Js',
-  },
-  {
-    value: 'What is ReactJs',
-    label: 'What is ReactJs',
-  },
-  {
-    value: 'What is OOP',
-    label: 'What is OOP',
-  },
-];
 
-export default function StartLiveQuiz() {
+export default function StartLiveQuiz(props) {
   const [fullName, setFullname] = React.useState(' ');
   const [email, setEmail] = React.useState(' ');
   const [level, setLevel] = React.useState(' ');
   const [year, setYear] = React.useState(' ');
   const [skill, setSkill] = React.useState(' ');
   const [notes, setNotes] = React.useState(' ');
+  const inputValues = props.location.state || {};
 
   const handleChangeFullname = (event) => {
     setFullname(event.target.value);
@@ -81,7 +68,7 @@ export default function StartLiveQuiz() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [questions, setQuestions] = React.useState([
+  const [questions, setQuestions] = React.useState(
     [
       {
         value: 'What is Js',
@@ -95,8 +82,8 @@ export default function StartLiveQuiz() {
         value: 'What is OOP',
         label: 'What is OOP',
       },
-    ],
-  ]);
+    ]
+  );
 
   const handleChangeQuestion = (event) => {
     setQuestions(event.target.value);
@@ -242,7 +229,7 @@ export default function StartLiveQuiz() {
                   {' '}
                   Email:
                 </Grid>
-                <Grid></Grid>
+                <Grid> {inputValues.fullName} </Grid>
                 <Grid className={styles.info} sx={{ mt: 3 }}>
                   Expertise Level
                 </Grid>
@@ -316,7 +303,7 @@ export default function StartLiveQuiz() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <LiveQuizFinish />
+        <LiveQuizFinish handlePage={props.handlePage}/>
       </Modal>
     </>
   );

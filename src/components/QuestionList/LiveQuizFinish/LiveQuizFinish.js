@@ -12,10 +12,11 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import styles from './LiveQuizFinish.module.css';
 
-export default function LiveQuizFinish() {
+export default function LiveQuizFinish(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    // const data = new FormData(event.currentTarget);
+    props.handlePage(true);
   };
 
   return (

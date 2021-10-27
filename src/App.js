@@ -19,9 +19,6 @@ function App() {
             {' '}
             <QuestionList />
           </Route>
-          <Route exact path="/AddNewCandidate">
-            <AddNewCandidate/>
-          </Route>
           <Route exact path="/StartLiveQuiz">
            <StartLiveQuiz/>
           </Route>

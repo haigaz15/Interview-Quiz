@@ -8,7 +8,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import { useHistory } from 'react-router-dom';
 import styles from './AddNewCandidate.module.css';
-
+import Modal from '@mui/material/Modal'
 const levels = [
   {
     value: 'Junior',
@@ -54,68 +54,75 @@ const skills = [
   },
 ];
 
-export default function AddNewCandidate({
-  handleChangeFullname,
-  handleChangeEmail,
-  handleChangeLevel,
-  handleChangeYear,
-  handleChangeSkill,
-  handleChangeNotes,
-  fullName,
-  email,
-  level,
-  year,
-  skill,
-  notes,
-}) {
-  // const [fullName, setFullname] = React.useState(' ');
-  // const [email, setEmail] = React.useState(' ');
-  // const [level, setLevel] = React.useState(' ');
-  // const [year, setYear] = React.useState(' ');
-  // const [skill, setSkill] = React.useState(' ');
-  // const [notes, setNotes] = React.useState(' ');
+export default function AddNewCandidate(props) {
+  // {
+  //   handleChangeFullname,
+  //   handleChangeEmail,
+  //   handleChangeLevel,
+  //   handleChangeYear,
+  //   handleChangeSkill,
+  //   handleChangeNotes,
+  //   fullName,
+  //   email,
+  //   level,
+  //   year,
+  //   skill,
+  //   notes,
+  // }
 
-  // const handleChangeFullname = (event) => {
-  //   setFullname(event.target.value);
-  //   console.log(`${event.target.value}`);
-  // };
+  const [fullName, setFullname] = React.useState(' ');
+  const [email, setEmail] = React.useState(' ');
+  const [level, setLevel] = React.useState(' ');
+  const [year, setYear] = React.useState(' ');
+  const [skill, setSkill] = React.useState(' ');
+  const [notes, setNotes] = React.useState(' ');
 
-  // const handleChangeEmail = (event) => {
-  //   setEmail(event.target.value);
-  //   console.log(`${event.target.value}`);
-  // };
+  const handleChangeFullname = (event) => {
+    setFullname(event.target.value);
+    console.log(`${event.target.value}`);
+  };
 
-  // const handleChangeLevel = (event) => {
-  //   setLevel(event.target.value);
-  //   console.log(`${event.target.value}`);
-  // };
+  const handleChangeEmail = (event) => {
+    setEmail(event.target.value);
+    console.log(`${event.target.value}`);
+  };
 
-  // const handleChangeYear = (event) => {
-  //   setYear(event.target.value);
-  //   console.log(`${event.target.value}`);
-  // };
+  const handleChangeLevel = (event) => {
+    setLevel(event.target.value);
+    console.log(`${event.target.value}`);
+  };
 
-  // const handleChangeSkill = (event) => {
-  //   setSkill(event.target.value);
-  //   console.log(`${event.target.value}`);
-  // };
+  const handleChangeYear = (event) => {
+    setYear(event.target.value);
+    console.log(`${event.target.value}`);
+  };
 
-  // const handleChangeNotes = (event) => {
-  //   setNotes(event.target.value);
-  //   console.log(`${event.target.value}`);
-  // };
+  const handleChangeSkill = (event) => {
+    setSkill(event.target.value);
+    console.log(`${event.target.value}`);
+  };
+
+  const handleChangeNotes = (event) => {
+    setNotes(event.target.value);
+    console.log(`${event.target.value}`);
+  };
 
   const history = useHistory();
   const handleSubmit = (event) => {
     event.preventDefault();
-    history.push('/StartLiveQuiz/');
     const data = new FormData(event.target);
     const values = Object.fromEntries(data.entries());
-    console.log({ values });
+    history.push({pathname:'/StartLiveQuiz/',state:values});
   };
 
   return (
     <div>
+      <Modal
+        open={props.open}
+        onClose={props.handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+       >
       <Box className={styles.contMain}>
         <Grid
           container
@@ -283,6 +290,7 @@ export default function AddNewCandidate({
           </Box>
         </Grid>
       </Box>
+      </Modal>
     </div>
   );
 }

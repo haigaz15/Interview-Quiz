@@ -1,8 +1,5 @@
 import React, { useState} from 'react';
 import { Typography,Box, Grid, CardContent,Card,InputLabel,TextField,Select,MenuItem,InputAdornment, FormControl } from '@mui/material';
-import GroupsIcon from '@mui/icons-material/Groups';
-import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
-import SettingsIcon from '@mui/icons-material/Settings';
 import styles from './Questions.module.css'
 import AddIcon from '@mui/icons-material/Add';
 import AddNewQuestion from '../AddNewQuestion/AddNewQuestion'
