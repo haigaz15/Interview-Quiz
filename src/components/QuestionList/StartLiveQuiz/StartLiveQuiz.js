@@ -13,7 +13,6 @@ import AddIcon from '@mui/icons-material/Add';
 import Link from '@mui/material/Link';
 import AddNewCandidate from '../AddNewCandidate/AddNewCandidate';
 import styles from './StartLiveQuiz.module.css';
-import { useHistory } from 'react-router-dom';
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -25,65 +24,24 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const lightTheme = createTheme({ palette: { mode: 'light' } });
 
-
 export default function StartLiveQuiz(props) {
-  const [fullName, setFullname] = React.useState(' ');
-  const [email, setEmail] = React.useState(' ');
-  const [level, setLevel] = React.useState(' ');
-  const [year, setYear] = React.useState(' ');
-  const [skill, setSkill] = React.useState(' ');
-  const [notes, setNotes] = React.useState(' ');
-  const inputValues = props.location.state || {};
-
-  const handleChangeFullname = (event) => {
-    setFullname(event.target.value);
-    console.log(`${event.target.value}`);
-  };
-
-  const handleChangeEmail = (event) => {
-    setEmail(event.target.value);
-    console.log(`${event.target.value}`);
-  };
-
-  const handleChangeLevel = (event) => {
-    setLevel(event.target.value);
-    console.log(`${event.target.value}`);
-  };
-
-  const handleChangeYear = (event) => {
-    setYear(event.target.value);
-    console.log(`${event.target.value}`);
-  };
-
-  const handleChangeSkill = (event) => {
-    setSkill(event.target.value);
-    console.log(`${event.target.value}`);
-  };
-
-  const handleChangeNotes = (event) => {
-    setNotes(event.target.value);
-    console.log(`${event.target.value}`);
-  };
-
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [questions, setQuestions] = React.useState(
-    [
-      {
-        value: 'What is Js',
-        label: 'What is Js',
-      },
-      {
-        value: 'What is ReactJs',
-        label: 'What is ReactJs',
-      },
-      {
-        value: 'What is OOP',
-        label: 'What is OOP',
-      },
-    ]
-  );
+  const [questions, setQuestions] = React.useState([
+    {
+      value: 'What is Js',
+      label: 'What is Js',
+    },
+    {
+      value: 'What is ReactJs',
+      label: 'What is ReactJs',
+    },
+    {
+      value: 'What is OOP',
+      label: 'What is OOP',
+    },
+  ]);
 
   const handleChangeQuestion = (event) => {
     setQuestions(event.target.value);
@@ -224,12 +182,12 @@ export default function StartLiveQuiz(props) {
                 alignItems="flex-start"
               >
                 <Grid className={styles.info}>Full Name:</Grid>
-                <Grid>{email}</Grid>
+                <Grid></Grid>
                 <Grid className={styles.info} sx={{ mt: 3 }}>
                   {' '}
                   Email:
                 </Grid>
-                <Grid> {inputValues.fullName} </Grid>
+                <Grid> </Grid>
                 <Grid className={styles.info} sx={{ mt: 3 }}>
                   Expertise Level
                 </Grid>
@@ -303,7 +261,7 @@ export default function StartLiveQuiz(props) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <LiveQuizFinish handlePage={props.handlePage}/>
+        <LiveQuizFinish handlePage={props.handlePage} />
       </Modal>
     </>
   );
