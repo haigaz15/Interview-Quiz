@@ -98,6 +98,7 @@ export default function AddNewCandidate(props) {
     event.preventDefault();
     const data = new FormData(event.target);
     const values = Object.fromEntries(data.entries());
+    debugger;
     console.log(values);
     history.push('/StartLiveQuiz/');
   };

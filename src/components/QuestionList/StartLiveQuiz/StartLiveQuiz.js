@@ -29,34 +29,33 @@ export default function StartLiveQuiz(props) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [questions, setQuestions] = React.useState([
-    {
-      value: 'What is Js',
-      label: 'What is Js',
-    },
-    {
-      value: 'What is ReactJs',
-      label: 'What is ReactJs',
-    },
-    {
-      value: 'What is OOP',
-      label: 'What is OOP',
-    },
+    [
+      {
+        value: 'What is Js',
+        label: 'What is Js',
+      },
+      {
+        value: 'What is ReactJs',
+        label: 'What is ReactJs',
+      },
+      {
+        value: 'What is OOP',
+        label: 'What is OOP',
+      },
+    ],
   ]);
 
+  const [arrOfOptions, setArrOfOptions] = React.useState([]);
+
   const handleChangeQuestion = (event) => {
-    setQuestions(event.target.value);
+    let temp = [...arrOfOptions, event.target.value];
+    setArrOfOptions(temp);
   };
 
   function addQuestionAnswer() {
-    setQuestions([
-      ...questions,
-      {
-        answer: '',
-        score: '',
-      },
-    ]);
+    let temp = [...questions, ...questions];
+    setQuestions(temp);
   }
-
   function questionAnswerUI() {
     return questions.map((ques, i) => (
       <>
@@ -84,11 +83,11 @@ export default function StartLiveQuiz(props) {
                             size="small"
                             id="question"
                             select
-                            value={questions}
+                            value={arrOfOptions[i]}
                             onChange={handleChangeQuestion}
                             style={{ width: '90%' }}
                           >
-                            {questions.map((option) => (
+                            {ques.map((option) => (
                               <MenuItem key={option.value} value={option.value}>
                                 {option.label}
                               </MenuItem>
