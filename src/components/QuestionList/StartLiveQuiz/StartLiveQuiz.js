@@ -53,7 +53,20 @@ export default function StartLiveQuiz(props) {
   };
 
   function addQuestionAnswer() {
-    let temp = [...questions, ...questions];
+    let temp = [...questions,[
+      {
+        value: 'What is Js',
+        label: 'What is Js',
+      },
+      {
+        value: 'What is ReactJs',
+        label: 'What is ReactJs',
+      },
+      {
+        value: 'What is OOP',
+        label: 'What is OOP',
+      },
+    ]];
     setQuestions(temp);
   }
   function questionAnswerUI() {
