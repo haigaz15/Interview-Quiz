@@ -57,8 +57,6 @@ export default function AddNewCandidate(props) {
   const history = useHistory();
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.target);
-    const values = Object.fromEntries(data.entries());
     history.push('/StartLiveQuiz/');
   };
 

@@ -13,8 +13,9 @@ import AddIcon from '@mui/icons-material/Add';
 import Link from '@mui/material/Link';
 import AddNewCandidate from '../AddNewCandidate/AddNewCandidate';
 import styles from './StartLiveQuiz.module.css';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Typography } from '@mui/material';
+import { setArrOfOptions, setOpen, setChangeQuestions} from '../../../redux/startLiveQuiz-slice';
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -27,37 +28,23 @@ const Item = styled(Paper)(({ theme }) => ({
 const lightTheme = createTheme({ palette: { mode: 'light' } });
 
 export default function StartLiveQuiz(props) {
-  const [open, setOpen] = React.useState(false);
+  const open = useSelector(state => state.startLiveQuiz.open);
+  const arrOfOptions = useSelector(state => state.startLiveQuiz.arrOfOptions);
+  const questions = useSelector(state => state.startLiveQuiz.questions);
+  const dispatch = useDispatch();
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const [questions, setQuestions] = React.useState([
-    [
-      {
-        value: 'What is Js',
-        label: 'What is Js',
-      },
-      {
-        value: 'What is ReactJs',
-        label: 'What is ReactJs',
-      },
-      {
-        value: 'What is OOP',
-        label: 'What is OOP',
-      },
-    ],
-  ]);
-
-  const [arrOfOptions, setArrOfOptions] = React.useState([]);
   const level = useSelector(state => state.candidates.level);
   const fullName = useSelector(state => state.candidates.fullName);
   const email = useSelector(state => state.candidates.email);
   const year = useSelector(state => state.candidates.year);
   const notes = useSelector(state => state.candidates.notes);
 
+  const handleOpen = () => dispatch(setOpen(true));
+  const handleClose = () => dispatch(setOpen(false));
+
   const handleChangeQuestion = (event) => {
     let temp = [...arrOfOptions, event.target.value];
-    setArrOfOptions(temp);
+    dispatch(setArrOfOptions(temp));
   };
 
   function addQuestionAnswer() {
@@ -75,7 +62,7 @@ export default function StartLiveQuiz(props) {
         label: 'What is OOP',
       },
     ]];
-    setQuestions(temp);
+    dispatch(setChangeQuestions(temp));
   }
   function questionAnswerUI() {
     return questions.map((ques, i) => (

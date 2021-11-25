@@ -14,6 +14,7 @@ import styles from './LiveQuizFinish.module.css';
 import { useHistory } from 'react-router';
 import { useSelector,useDispatch } from 'react-redux';
 import {setCandidatesData} from '../../../redux/liveQuizFinish-slice'
+import {setOpen} from '../../../redux/startLiveQuiz-slice';
 import nextId from "react-id-generator";
 
 export default function LiveQuizFinish(props) {
@@ -24,6 +25,7 @@ export default function LiveQuizFinish(props) {
   const fullName = useSelector(state => state.candidates.fullName);
   const year = useSelector(state => state.candidates.year);
   const skill = useSelector(state => state.candidates.skill);
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.target);
@@ -32,6 +34,7 @@ export default function LiveQuizFinish(props) {
     let temp = candidatesData;
     let newTemp = [...temp,tempValues]
     dispatch(setCandidatesData(newTemp));
+    dispatch(setOpen(false));
     history.push("/QuestionList/")
     
   };
