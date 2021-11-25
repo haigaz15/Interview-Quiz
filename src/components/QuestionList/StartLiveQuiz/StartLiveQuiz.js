@@ -13,6 +13,8 @@ import AddIcon from '@mui/icons-material/Add';
 import Link from '@mui/material/Link';
 import AddNewCandidate from '../AddNewCandidate/AddNewCandidate';
 import styles from './StartLiveQuiz.module.css';
+import { useSelector } from 'react-redux';
+import { Typography } from '@mui/material';
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -26,6 +28,7 @@ const lightTheme = createTheme({ palette: { mode: 'light' } });
 
 export default function StartLiveQuiz(props) {
   const [open, setOpen] = React.useState(false);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [questions, setQuestions] = React.useState([
@@ -46,6 +49,11 @@ export default function StartLiveQuiz(props) {
   ]);
 
   const [arrOfOptions, setArrOfOptions] = React.useState([]);
+  const level = useSelector(state => state.candidates.level);
+  const fullName = useSelector(state => state.candidates.fullName);
+  const email = useSelector(state => state.candidates.email);
+  const year = useSelector(state => state.candidates.year);
+  const notes = useSelector(state => state.candidates.notes);
 
   const handleChangeQuestion = (event) => {
     let temp = [...arrOfOptions, event.target.value];
@@ -193,23 +201,41 @@ export default function StartLiveQuiz(props) {
                 justifyContent="flex-start"
                 alignItems="flex-start"
               >
-                <Grid className={styles.info}>Full Name:</Grid>
+                <Grid className={styles.info}>Full Name:
+                  <Typography variant="h6" gutterBottom component="div" style={{fontFamily:"Robot",color: "#484848"}}>
+                      {fullName}
+                   </Typography> 
+                </Grid>
                 <Grid></Grid>
                 <Grid className={styles.info} sx={{ mt: 3 }}>
                   {' '}
                   Email:
+                  <Typography variant="h6" gutterBottom component="div" style={{fontFamily:"Robot",color: "#484848"}}>
+                      {email}
+                   </Typography> 
+                  
                 </Grid>
                 <Grid> </Grid>
                 <Grid className={styles.info} sx={{ mt: 3 }}>
-                  Expertise Level
+                  Expertise Level:
+                  <Typography variant="h6" gutterBottom component="div" style={{fontFamily:"Robot",color: "#484848"}}>
+                     {level} 
+                   </Typography> 
                 </Grid>
                 <Grid></Grid>
                 <Grid className={styles.info} sx={{ mt: 3 }}>
-                  Years of Experience:
+                  Years of Experience: 
+                  <Typography variant="h6" gutterBottom component="div" style={{fontFamily:"Robot",color: "#484848"}}>
+                     {year}
+                   </Typography> 
+                  
                 </Grid>
                 <Grid></Grid>
                 <Grid className={styles.info} sx={{ mt: 3 }}>
                   Notes:
+                  <Typography variant="h6" gutterBottom component="div" style={{fontFamily:"Robot",color: "#484848"}}>
+                    {notes} 
+                   </Typography> 
                 </Grid>
                 <Grid></Grid>
               </Grid>
@@ -273,7 +299,7 @@ export default function StartLiveQuiz(props) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <LiveQuizFinish handlePage={props.handlePage} />
+        <LiveQuizFinish />
       </Modal>
     </>
   );

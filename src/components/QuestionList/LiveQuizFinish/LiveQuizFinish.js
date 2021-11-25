@@ -11,14 +11,32 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import styles from './LiveQuizFinish.module.css';
+import { useHistory } from 'react-router';
+import { useSelector,useDispatch } from 'react-redux';
+import {setCandidatesData} from '../../../redux/liveQuizFinish-slice'
+import nextId from "react-id-generator";
 
 export default function LiveQuizFinish(props) {
+  
+  const history  = useHistory();
+  const dispatch = useDispatch();
+  const candidatesData = useSelector(state => state.liveQuizFinish.candidatesData);
+  const fullName = useSelector(state => state.candidates.fullName);
+  const year = useSelector(state => state.candidates.year);
+  const skill = useSelector(state => state.candidates.skill);
   const handleSubmit = (event) => {
     event.preventDefault();
-    // const data = new FormData(event.currentTarget);
-    props.handlePage(true);
+    const data = new FormData(event.target);
+    const values = Object.fromEntries(data.entries());
+    let tempValues = {...values,name:fullName ,year:year,skill:skill}
+    let temp = candidatesData;
+    let newTemp = [...temp,tempValues]
+    dispatch(setCandidatesData(newTemp));
+    history.push("/QuestionList/")
+    
   };
-
+ 
+  
   return (
     <div>
       <Box className={styles.contMain}>
@@ -71,6 +89,7 @@ export default function LiveQuizFinish(props) {
                 id="feedback"
                 style={{ width: 380 }}
                 multiline
+                name="feedback"
                 rows={4}
               />
             </Grid>
@@ -85,7 +104,7 @@ export default function LiveQuizFinish(props) {
                 <RadioGroup
                   row
                   aria-label="reccomend"
-                  name="row-radio-buttons-group"
+                  name="radioButtons"
                 >
                   <FormControlLabel
                     value="Yes"

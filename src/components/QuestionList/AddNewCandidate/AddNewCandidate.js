@@ -9,87 +9,48 @@ import MenuItem from '@mui/material/MenuItem';
 import { useHistory } from 'react-router-dom';
 import styles from './AddNewCandidate.module.css';
 import Modal from '@mui/material/Modal';
+import { useSelector,useDispatch } from 'react-redux';
+import { handleName,handleMail,handleLevel,handleYear,handleSkill,handleNotes } from '../../../redux/candidates-slice'
+import {skills,levels,years} from '../../../datas/datas'
 
-const levels = [
-  {
-    value: 'Junior',
-    label: 'Junior',
-  },
-  {
-    value: 'Intermediate',
-    label: 'Intermediate',
-  },
-  {
-    value: 'Senior',
-    label: 'Senior',
-  },
-];
-
-const years = [
-  {
-    value: '1',
-    label: '1',
-  },
-  {
-    value: '2',
-    label: '2',
-  },
-  {
-    value: '3',
-    label: '3',
-  },
-];
-
-const skills = [
-  {
-    value: 'C#',
-    label: 'C#',
-  },
-  {
-    value: 'ReactJs',
-    label: 'ReactJs',
-  },
-  {
-    value: 'OOP',
-    label: 'OOP',
-  },
-];
 
 export default function AddNewCandidate(props) {
-  const [fullName, setFullname] = React.useState(' ');
-  const [email, setEmail] = React.useState(' ');
-  const [level, setLevel] = React.useState(' ');
-  const [year, setYear] = React.useState(' ');
-  const [skill, setSkill] = React.useState(' ');
-  const [notes, setNotes] = React.useState(' ');
+
+  const fullName = useSelector(state=>state.candidates.fullName);
+  const email = useSelector(state=>state.candidates.email);
+  const level = useSelector(state=>state.candidates.level);
+  const year  = useSelector(state=>state.candidates.year);
+  const skill = useSelector(state=>state.candidates.skill);
+  const notes = useSelector(state=>state.candidates.notes);
+  const dispatch = useDispatch();
 
   const handleChangeFullname = (event) => {
-    setFullname(event.target.value);
+    dispatch(handleName(event.target.value))
     console.log(`${event.target.value}`);
   };
 
   const handleChangeEmail = (event) => {
-    setEmail(event.target.value);
+    dispatch(handleMail(event.target.value))
     console.log(`${event.target.value}`);
   };
 
   const handleChangeLevel = (event) => {
-    setLevel(event.target.value);
+    dispatch(handleLevel(event.target.value))
     console.log(`${event.target.value}`);
   };
 
   const handleChangeYear = (event) => {
-    setYear(event.target.value);
+    dispatch(handleYear(event.target.value))
     console.log(`${event.target.value}`);
   };
 
   const handleChangeSkill = (event) => {
-    setSkill(event.target.value);
+    dispatch(handleSkill(event.target.value))
     console.log(`${event.target.value}`);
   };
 
   const handleChangeNotes = (event) => {
-    setNotes(event.target.value);
+    dispatch(handleNotes(event.target.value))
     console.log(`${event.target.value}`);
   };
 
@@ -98,8 +59,6 @@ export default function AddNewCandidate(props) {
     event.preventDefault();
     const data = new FormData(event.target);
     const values = Object.fromEntries(data.entries());
-    debugger;
-    console.log(values);
     history.push('/StartLiveQuiz/');
   };
 

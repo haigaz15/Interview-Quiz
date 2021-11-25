@@ -10,10 +10,61 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import { Select, Box, OutlinedInput } from '@material-ui/core';
 import styles from './AddNewQuestion.module.css';
+import {  useDispatch, useSelector } from 'react-redux'
+import {handleLevel,handleSkill,handleQuestion,setOpen,setQuestionData,setFilteredData} from '../../../redux/questions-slice';
+import nextId from "react-id-generator";
 
 const AddNewQuestion = (props) => {
+
+const dispatch = useDispatch();
+
+const open = useSelector(state=>state.question.open)
+
+const handleChangeLevel = (event) => {
+  dispatch(handleLevel(event.target.value));
+};
+
+const handleQuestionChange = (event) => {
+dispatch(handleQuestion(event.target.value));
+};
+
+const handleChangeSkill = (event) => {
+  dispatch(handleSkill(event.target.value));
+};
+
+
+const questionData = useSelector(state=>state.question.questionData);
+const level = useSelector(state=>state.question.level);
+const skill = useSelector(state=>state.question.skill);
+const question = useSelector(state=>state.question.question);
+const filteredData = useSelector(state=>state.question.filteredData);
+const filteredLevel = useSelector(state=>state.question.filteredLevel);
+
+const handleSubmit = (e) =>{
+  let temp = questionData
+  let addedData = {
+    id:nextId(),
+    question:question,
+    level:level,
+    skill:skill
+    }
+    let newtemp = [...temp,addedData];
+    dispatch(setQuestionData(newtemp));
+    dispatch(setOpen(false));
+   if(filteredLevel !== 'All'){
+    if(addedData.level === filteredLevel){
+      const  temp2 = filteredData
+      dispatch(setFilteredData([...temp2,addedData]));
+    }
+  } 
+  else{
+    dispatch(setFilteredData(newtemp))
+  }
+}
+
+
   return (
-    <Dialog open={props.open} onClose={props.handleClose}>
+    <Dialog open={open}>
       <Box className={styles.rootDialog}>
         <DialogContent className={styles.contentDialog}>
           <DialogTitle>Add new question</DialogTitle>
@@ -30,7 +81,7 @@ const AddNewQuestion = (props) => {
                 label="Technical Skills"
                 className={styles.technicaskills}
                 value={props.skill}
-                onChange={props.handleChangeSkill}
+                onChange={handleChangeSkill}
               >
                 {props.skills.map((options) => (
                   <MenuItem key={options.value} value={options.value}>
@@ -51,7 +102,7 @@ const AddNewQuestion = (props) => {
                 label="Technical Skills"
                 input={<OutlinedInput />}
                 value={props.level}
-                onChange={props.handleChangeLevel}
+                onChange={handleChangeLevel}
               >
                 {props.levels.map((options) => (
                   <MenuItem key={options.value} value={options.value}>
@@ -63,7 +114,7 @@ const AddNewQuestion = (props) => {
           </FormControl>
           <Box className={styles.selectblocks}>
             <InputLabel id="demo-simple-select-label">Question</InputLabel>
-            <TextareaAutosize minRows={9} className={styles.textArea} />
+            <TextareaAutosize minRows={9} className={styles.textArea} onChange={handleQuestionChange}/>
             <Button
               variant="contained"
               style={{
@@ -71,9 +122,21 @@ const AddNewQuestion = (props) => {
                 marginTop: '50px',
                 backgroundColor: '#4B63CB',
               }}
-              onClick={props.handleSubmit}
+              onClick={handleSubmit}
             >
               Add
+            </Button>
+            <Button
+              variant="contained"
+              style={{
+                width: '110px',
+                marginTop: '50px',
+                marginLeft:'20px',
+                backgroundColor: '#4B63CB',
+              }}
+              onClick={()=>dispatch(setOpen(false))}
+            >
+              cancel
             </Button>
           </Box>
         </DialogContent>
@@ -81,5 +144,6 @@ const AddNewQuestion = (props) => {
     </Dialog>
   );
 };
+
 
 export default AddNewQuestion;

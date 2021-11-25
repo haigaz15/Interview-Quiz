@@ -3,25 +3,33 @@ import { Typography,Box, Grid, CardContent,Card,InputLabel,TextField,Select,Menu
 import styles from './Questions.module.css'
 import AddIcon from '@mui/icons-material/Add';
 import AddNewQuestion from '../AddNewQuestion/AddNewQuestion'
-
+import { useDispatch, useSelector } from 'react-redux';
+import {setFilteredLevel, setOpen,setFilteredData} from '../../../redux/questions-slice'
 
 
 const Questions = (props) => {
-  const [level,setLevel] = useState("");
-  const [skill, setSkill] = useState("");
-  
-  
-  const handleLevel = (e) =>{
-    setLevel(e.target.value);
-    const filtered = props.data.filter(i => i.level === level)
-    props.handleFilterdData(filtered)
-    
-  }
-  const handleSkill = (e) =>{ 
-    setSkill(e.target.value);
 
-  }
+  const filteredData = useSelector(state=>state.question.filteredData);
+  const questionData = useSelector(state=>state.question.questionData);
   
+  const dispatch = useDispatch();
+
+  const handleLevel = (e) =>{
+    if(e.target.value !== 'All'){
+    const filtered = questionData.filter(i => i.level === e.target.value);
+    dispatch(setFilteredData(filtered));
+    dispatch(setFilteredLevel(e.target.value));
+    }
+    else{
+      dispatch(setFilteredData(questionData));
+      dispatch(setFilteredLevel(e.target.value));
+    }
+  }
+
+  // const handleSkill = (e) =>{ 
+  //   setSkill(e.target.value);
+  // }
+
     return(
     <div>
       <Box className = {styles.header}>
@@ -29,7 +37,7 @@ const Questions = (props) => {
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
-          value={level}
+          //value={level}
           label="level"
           onChange={handleLevel}
           style={{width:115,height:30,borderRadius:"4%",backgroundColor:"#D5E1FD"}}
@@ -45,23 +53,23 @@ const Questions = (props) => {
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
-          value={skill}
+          //value={skill}
           label="Age"
           variant="standard"
-          onChange={handleSkill}
+          //onChange={handleSkill}
           style={{width:191,height:30,marginLeft:"20px",borderRadius:"4%",backgroundColor:"#D5E1FD"}}
         >
           <MenuItem value="All">
             <em>All</em>
           </MenuItem>
-          {props.skills.map(skill =>
+          {/* {props.skills.map(skill =>
             <MenuItem value={skill.value}>{skill.label}</MenuItem>
-          )}
+          )} */}
         </Select>
       </Box>
       <Box style={{width:"800px",marginTop:"70px",marginLeft:"40px"}}>
       <Grid container  rowSpacing={4} sx={{ml:32, mt:-10}}>
-      {props.filteredData.map((d,index) =>
+      {filteredData.map((d,index) =>
       <Grid item xs={3} sm={4} md={8} lg={8} xl={12} key={d.id}>
                 <Card>
                   <CardContent>
@@ -90,23 +98,14 @@ const Questions = (props) => {
         )}
      </Grid>
      </Box>
-      <Box className = {styles.AddCircle} onClick={props.addQuestion} position="fixed" >
+      <Box className = {styles.AddCircle} onClick={ () => {dispatch(setOpen(true))} } position="fixed">
       <AddIcon fontSize="large" sx={{ color: "#FFFFFF" }} className = {styles.AddIcond}/> 
     </Box>
       <AddNewQuestion 
-      open = {props.open} 
-      handleClose={props.handleClose}
       skills={props.skills}
       levels={props.levels}
-      skill={props.skill}
-      level={props.level}
-      question = {props.question}
-      addquestion= {props.AddCirclequestion}
-      handleQuestionChange = {props.handleQuestionChange}
-      handleChangeLevel = {props.handleChangeLevel}
-      handleChangeSkill = {props.handleChangeSkill}
-      handleSubmit={props.handleSubmit}
       />
+
     </div>
     )
 }

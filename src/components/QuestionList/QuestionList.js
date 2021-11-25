@@ -8,137 +8,37 @@ import AddIcon from '@mui/icons-material/Add';
 import { useState,useEffect  } from 'react';
 import Questions from './Questions/Questions';
 import Candidates from './Candidates/Candidates';
-import StartLiveQuiz from './StartLiveQuiz/StartLiveQuiz';
+import {  useSelector, useDispatch } from 'react-redux';
+import { setQuestionareClicked,setCandidatesClicked, setQuestionData} from '../../redux/questionList-slice';
+import {levels,skills} from '../../datas/datas';
+import { setOpen } from '../../redux/questions-slice';
 
 const QuestionList = () => {
     
-    const levels = [
-        {
-          value: 'Junior',
-          label: 'Junior',
-        },
-        {
-          value: 'Intermediate',
-          label: 'Intermediate',
-        },
-        {
-          value: 'Senior',
-          label: 'Senior',
-        },
-      ];
-      
-      const years = [
-        {
-          value: '1',
-          label: '1',
-        },
-        {
-          value: '2',
-          label: '2',
-        },
-        {
-          value: '3',
-          label: '3',
-        },
-      ];
-      
-      const skills = [
-        {
-          value: 'C#',
-          label: 'C#',
-        },
-        {
-          value: 'ReactJs',
-          label: 'ReactJs',
-        },
-        {
-          value: 'OOP',
-          label: 'OOP',
-        },
-      ];
-    const data = [{
-        id:"uuidv4()",
-        question:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis",
-        level:"Intermediate",
-        skill:"C#"
-    }]
+
+    const candidatesClicked = useSelector(state => state.questionList.candidatesClicked);
+    const questionareClicked = useSelector(state => state.questionList.questionareClicked);
+    const questionData = useSelector(state => state.question.questionData)
+
+    const dispatch = useDispatch()
 
 
-
-    const [open, setOpen] = useState(false);
-    const [candidatesClicked,setCandidatesClicked] = useState(false);
-    const [questionareClicked , setQuestionareClicked] = useState(false);
-    const [level, setLevel] = useState(' ');
-    const [skill, setSkill] = useState(' ');
-    const [question,setQuestion] = useState(' ');
-    const [questionData, setQuestionData] = useState(data)
-    const [filteredData, setFilteredData] = useState(data);
-    const [page, setPage] = useState(false);
-
-    const addQuestion = () => {
-        setOpen(true)
-    }
-
-    const handleClose = () => {
-        setOpen(false);
-    };
 
     const handleQuestionare = () => {
-      setQuestionareClicked(true)
-      setCandidatesClicked(false)
+      dispatch(setQuestionareClicked(true));
+      dispatch(setCandidatesClicked(false));
     }
 
     const handleCandidates = () => {
-      setCandidatesClicked(true)
-      setQuestionareClicked(false)
-    }
-    const handleChangeLevel = (event) => {
-        setLevel(event.target.value);
-      };
-    const handleQuestionChange = (e) => {
-      setQuestion(e.target.value);
-    }
-    
-    const handleChangeSkill = (event) => {
-        setSkill(event.target.value);
-    }
-    const handleSubmit = (e) =>{
-        setQuestionData(state=>{
-            return [...state,{
-                id:"kjsdfaaasd",
-                question:question,
-                level:level,
-                skill:skill
-            }]
-        })
-        setFilteredData(state=>{
-          return [...state,{
-            id:"kjsdfaaasd",
-            question:question,
-            level:level,
-            skill:skill
-         }]
-       })
-         setLevel('');
-         setSkill('');
-         setQuestion('');
+      dispatch(setCandidatesClicked(true));
+      dispatch(setQuestionareClicked(false));
     }
 
-    const handleFilterdData = (filtered)=>{
-      const newfiltered = filtered
-      setFilteredData(newfiltered)
-    }
 
-    const handlePage = (value)=>{
-      setPage(value);
-    }
-
-    useEffect(() => {
-      console.log("Search message inside useEffect: ", filteredData);
-    }, [filteredData]);
 
     const UI = ()=>{
-      return(    <Box className = {styles.root}>
+      return(    
+      <Box className = {styles.root}>
         <List className={styles.LeftMenu}>
         <Box className = {styles.Group134}>
             <Typography className = {styles.EasyIntr} >
@@ -167,31 +67,15 @@ const QuestionList = () => {
           </List> 
           {questionareClicked ? <Questions
           className={styles.Questions} 
-          open={open} 
           skills={skills}
           levels={levels}
-          skill={skill}
-          level={level}
-          question= {question}
-          handleQuestionChange = {handleQuestionChange}
-          addQuestion = {addQuestion} 
-          handleClose={handleClose}
-          handleChangeLevel = {handleChangeLevel}
-          handleChangeSkill = {handleChangeSkill}
-          handleSubmit = {handleSubmit}
-          data={questionData}
-          filteredData={filteredData}
-          handleFilterdData = {handleFilterdData}
+
           />:""}
           {
-            candidatesClicked ? <Candidates
-            open={open} 
+            candidatesClicked ? 
+            <Candidates
             skills={skills}
             levels={levels}
-            skill={skill}
-            level={level}
-            handleChangeLevel = {handleChangeLevel}
-            handleChangeSkill = {handleChangeSkill}
             data={questionData}
 
 

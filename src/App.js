@@ -3,12 +3,13 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import QuestionList from './components/QuestionList/QuestionList';
 import AddNewCandidate from "./components/QuestionList/AddNewCandidate/AddNewCandidate";
 import StartLiveQuiz from "./components/QuestionList/StartLiveQuiz/StartLiveQuiz";
- 
+
 
 
 
 function App() {
   return (
+
     <div>
       <Router>
         <Switch>
@@ -25,6 +26,7 @@ function App() {
         </Switch>
       </Router>
     </div>
+
   );
 }
 
