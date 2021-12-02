@@ -1,7 +1,6 @@
 import Login from './components/Login/Login';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import QuestionList from './components/QuestionList/QuestionList';
-import AddNewCandidate from "./components/QuestionList/AddNewCandidate/AddNewCandidate";
 import StartLiveQuiz from "./components/QuestionList/StartLiveQuiz/StartLiveQuiz";
 
 

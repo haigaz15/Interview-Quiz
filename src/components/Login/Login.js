@@ -11,12 +11,15 @@ import InputLabel from '@mui/material/InputLabel';
 import { Field, Form, Formik } from 'formik';
 import { object, string } from 'yup';
 import styles from './Login.module.css';
+import { useHistory } from 'react-router-dom';
 
 export default function SignIn() {
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  // };
+
+  const history = useHistory();
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    history.push('/QuestionList');
+  };
 
   const initialValues = {
     email: '',
@@ -46,8 +49,7 @@ export default function SignIn() {
               alignItems="center"
             >
               <Box
-                component="form"
-                // onSubmit={handleSubmit}
+                component="form" 
                 noValidate
                 sx={{ mt: 1 }}
               >
@@ -122,6 +124,7 @@ export default function SignIn() {
                 </Box>
 
                 <Button
+                onClick = {handleSubmit}
                   style={{ backgroundColor: '#4B63CB' }}
                   type="submit"
                   size="large"

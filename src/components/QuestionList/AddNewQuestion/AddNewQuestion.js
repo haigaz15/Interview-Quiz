@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
-import { Button, TextField, Paper, TextareaAutosize } from '@mui/material';
+import React from 'react';
+import { Button,TextareaAutosize } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
-import BootstrapDialog from '@mui/material/Dialog';
 import FormControl from '@material-ui/core/FormControl';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import { DialogTitle } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -77,7 +75,6 @@ const handleSubmit = (e) =>{
                 input={<OutlinedInput />}
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={'Technical Skill'}
                 label="Technical Skills"
                 className={styles.technicaskills}
                 value={props.skill}
@@ -98,7 +95,6 @@ const handleSubmit = (e) =>{
                 className={styles.expertiselevel}
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={'Technical Skill'}
                 label="Technical Skills"
                 input={<OutlinedInput />}
                 value={props.level}

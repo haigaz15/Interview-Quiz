@@ -11,11 +11,17 @@ import Modal from '@mui/material/Modal';
 import LiveQuizFinish from '../LiveQuizFinish/LiveQuizFinish';
 import AddIcon from '@mui/icons-material/Add';
 import Link from '@mui/material/Link';
-import AddNewCandidate from '../AddNewCandidate/AddNewCandidate';
 import styles from './StartLiveQuiz.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { Typography } from '@mui/material';
-import { setArrOfOptions, setOpen, setChangeQuestions} from '../../../redux/startLiveQuiz-slice';
+import {
+  setArrOfOptions,
+  setOpen,
+  setScore,
+  setScores,
+  setChangeQuestions,
+} from '../../../redux/startLiveQuiz-slice';
+
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -27,17 +33,18 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const lightTheme = createTheme({ palette: { mode: 'light' } });
 
-export default function StartLiveQuiz(props) {
-  const open = useSelector(state => state.startLiveQuiz.open);
-  const arrOfOptions = useSelector(state => state.startLiveQuiz.arrOfOptions);
-  const questions = useSelector(state => state.startLiveQuiz.questions);
+export default function StartLiveQuiz( ) {
+  const open = useSelector((state) => state.startLiveQuiz.open);
+  const arrOfOptions = useSelector((state) => state.startLiveQuiz.arrOfOptions);
+  const questions = useSelector((state) => state.startLiveQuiz.questions);
   const dispatch = useDispatch();
 
-  const level = useSelector(state => state.candidates.level);
-  const fullName = useSelector(state => state.candidates.fullName);
-  const email = useSelector(state => state.candidates.email);
-  const year = useSelector(state => state.candidates.year);
-  const notes = useSelector(state => state.candidates.notes);
+  const level = useSelector((state) => state.candidates.level);
+  const fullName = useSelector((state) => state.candidates.fullName);
+  const email = useSelector((state) => state.candidates.email);
+  const year = useSelector((state) => state.candidates.year);
+  const notes = useSelector((state) => state.candidates.notes);
+  const scores = useSelector((state) => state.startLiveQuiz.scores);
 
   const handleOpen = () => dispatch(setOpen(true));
   const handleClose = () => dispatch(setOpen(false));
@@ -47,21 +54,30 @@ export default function StartLiveQuiz(props) {
     dispatch(setArrOfOptions(temp));
   };
 
+  const handleChangeScore = (event) => {
+    dispatch(setScore(event.target.value));
+    dispatch(setScores([...scores, event.target.value]));
+    console.log(scores);
+  };
+
   function addQuestionAnswer() {
-    let temp = [...questions,[
-      {
-        value: 'What is Js',
-        label: 'What is Js',
-      },
-      {
-        value: 'What is ReactJs',
-        label: 'What is ReactJs',
-      },
-      {
-        value: 'What is OOP',
-        label: 'What is OOP',
-      },
-    ]];
+    let temp = [
+      ...questions,
+      [
+        {
+          value: 'What is Js',
+          label: 'What is Js',
+        },
+        {
+          value: 'What is ReactJs',
+          label: 'What is ReactJs',
+        },
+        {
+          value: 'What is OOP',
+          label: 'What is OOP',
+        },
+      ],
+    ];
     dispatch(setChangeQuestions(temp));
   }
   function questionAnswerUI() {
@@ -142,6 +158,16 @@ export default function StartLiveQuiz(props) {
                             <span className={styles.outlined}>Score</span>
                           </InputLabel>
                           <TextField
+                            onInput={(e) => {
+                              if (e.target.value > 6) {
+                                e.target.value = 6;
+                              } else if (e.target.value < 1) {
+                                e.target.value = 1;
+                              }
+                            }}
+                            // InputProps={{ inputProps: { min: 1, max: 6 } }}
+                            onChange={handleChangeScore}
+                            type="number"
                             size="small"
                             style={{ width: '60%' }}
                             id="outlined-basic"
@@ -188,41 +214,65 @@ export default function StartLiveQuiz(props) {
                 justifyContent="flex-start"
                 alignItems="flex-start"
               >
-                <Grid className={styles.info}>Full Name:
-                  <Typography variant="h6" gutterBottom component="div" style={{fontFamily:"Robot",color: "#484848"}}>
-                      {fullName}
-                   </Typography> 
+                <Grid className={styles.info}>
+                  Full Name:
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                    component="div"
+                    style={{ fontFamily: 'Robot', color: '#484848' }}
+                  >
+                    {fullName}
+                  </Typography>
                 </Grid>
                 <Grid></Grid>
                 <Grid className={styles.info} sx={{ mt: 3 }}>
                   {' '}
                   Email:
-                  <Typography variant="h6" gutterBottom component="div" style={{fontFamily:"Robot",color: "#484848"}}>
-                      {email}
-                   </Typography> 
-                  
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                    component="div"
+                    style={{ fontFamily: 'Robot', color: '#484848' }}
+                  >
+                    {email}
+                  </Typography>
                 </Grid>
                 <Grid> </Grid>
                 <Grid className={styles.info} sx={{ mt: 3 }}>
                   Expertise Level:
-                  <Typography variant="h6" gutterBottom component="div" style={{fontFamily:"Robot",color: "#484848"}}>
-                     {level} 
-                   </Typography> 
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                    component="div"
+                    style={{ fontFamily: 'Robot', color: '#484848' }}
+                  >
+                    {level}
+                  </Typography>
                 </Grid>
                 <Grid></Grid>
                 <Grid className={styles.info} sx={{ mt: 3 }}>
-                  Years of Experience: 
-                  <Typography variant="h6" gutterBottom component="div" style={{fontFamily:"Robot",color: "#484848"}}>
-                     {year}
-                   </Typography> 
-                  
+                  Years of Experience:
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                    component="div"
+                    style={{ fontFamily: 'Robot', color: '#484848' }}
+                  >
+                    {year}
+                  </Typography>
                 </Grid>
                 <Grid></Grid>
                 <Grid className={styles.info} sx={{ mt: 3 }}>
                   Notes:
-                  <Typography variant="h6" gutterBottom component="div" style={{fontFamily:"Robot",color: "#484848"}}>
-                    {notes} 
-                   </Typography> 
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                    component="div"
+                    style={{ fontFamily: 'Robot', color: '#484848' }}
+                  >
+                    {notes}
+                  </Typography>
                 </Grid>
                 <Grid></Grid>
               </Grid>
@@ -235,14 +285,14 @@ export default function StartLiveQuiz(props) {
         </Grid>
       </Box>
 
-      <Box sx={{ mt: 3, mr: 6 }} onClick={addQuestionAnswer}>
+      <Box sx={{ mt: 3, mr: 6 }}>
         <Grid
           container
           direction="row"
           justifyContent="flex-end"
           alignItems="center"
         >
-          <Grid>
+          <Grid onClick={addQuestionAnswer}>
             <Link
               component="button"
               style={{ color: '#4B63CB', fontSize: '16px' }}

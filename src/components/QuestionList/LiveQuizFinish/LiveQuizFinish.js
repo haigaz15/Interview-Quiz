@@ -12,34 +12,34 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import styles from './LiveQuizFinish.module.css';
 import { useHistory } from 'react-router';
-import { useSelector,useDispatch } from 'react-redux';
-import {setCandidatesData} from '../../../redux/liveQuizFinish-slice'
-import {setOpen} from '../../../redux/startLiveQuiz-slice';
-import nextId from "react-id-generator";
+import { useSelector, useDispatch } from 'react-redux';
+import { setCandidatesData } from '../../../redux/liveQuizFinish-slice';
+import { setOpen } from '../../../redux/startLiveQuiz-slice';
+import { avarageCounter } from '../../../helpers/helpers';
 
 export default function LiveQuizFinish(props) {
-  
-  const history  = useHistory();
+  const history = useHistory();
   const dispatch = useDispatch();
-  const candidatesData = useSelector(state => state.liveQuizFinish.candidatesData);
-  const fullName = useSelector(state => state.candidates.fullName);
-  const year = useSelector(state => state.candidates.year);
-  const skill = useSelector(state => state.candidates.skill);
-  
+  const candidatesData = useSelector(
+    (state) => state.liveQuizFinish.candidatesData
+  );
+  const fullName = useSelector((state) => state.candidates.fullName);
+  const year = useSelector((state) => state.candidates.year);
+  const skill = useSelector((state) => state.candidates.skill);
+  const scores = useSelector((state) => state.startLiveQuiz.scores);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.target);
     const values = Object.fromEntries(data.entries());
-    let tempValues = {...values,name:fullName ,year:year,skill:skill}
+    let tempValues = { ...values, name: fullName, year: year, skill: skill };
     let temp = candidatesData;
-    let newTemp = [...temp,tempValues]
+    let newTemp = [...temp, tempValues];
     dispatch(setCandidatesData(newTemp));
     dispatch(setOpen(false));
-    history.push("/QuestionList/")
-    
+    history.push('/QuestionList/');
   };
- 
-  
+
   return (
     <div>
       <Box className={styles.contMain}>
@@ -68,6 +68,7 @@ export default function LiveQuizFinish(props) {
               alignItems="center"
             >
               <TextField
+                value={avarageCounter(scores)}
                 size="small"
                 required
                 style={{ width: 380 }}
@@ -104,11 +105,7 @@ export default function LiveQuizFinish(props) {
                     Do you recommend this candidate?
                   </span>
                 </FormLabel>
-                <RadioGroup
-                  row
-                  aria-label="reccomend"
-                  name="radioButtons"
-                >
+                <RadioGroup row aria-label="reccomend" name="radioButtons">
                   <FormControlLabel
                     value="Yes"
                     control={<Radio />}
