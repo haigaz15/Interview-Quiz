@@ -24,10 +24,13 @@
     
 }
 .header{
-    margin-left: 294px;
-    margin-top: -70px;
+    margin-top: -7%;
+    margin-left: 13.99999999%;
 }
-
+.questionCont{
+    width:45%;
+    margin-top: 4%;
+}
 .content{
     display: flex;
     margin-bottom: 30px;

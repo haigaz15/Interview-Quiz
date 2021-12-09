@@ -29,7 +29,7 @@ const startLiveQuizSlice  = createSlice({
       setScore: (state, action) => {
         state.score = action.payload
     },
-    setScores: (state, action) => {
+      setScores: (state, action) => {
       state.scores = action.payload
   },
       setChangeQuestions:(state, action) => {

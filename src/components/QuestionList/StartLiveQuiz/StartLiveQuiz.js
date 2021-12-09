@@ -21,7 +21,7 @@ import {
   setScores,
   setChangeQuestions,
 } from '../../../redux/startLiveQuiz-slice';
-
+import Header from '../Header/Header';
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -189,6 +189,7 @@ export default function StartLiveQuiz( ) {
 
   return (
     <>
+    <Header/>
       <Box sx={{ mt: 10, mr: 6, ml: 6 }}>
         <Grid container spacing={10}>
           <Grid item xs={5} sm={4} md={3} lg={3}>

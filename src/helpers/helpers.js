@@ -6,3 +6,4 @@ export function avarageCounter(scores){
  }
  return `${((Sum/scores.length)/Sum)*100}%`;
 }
+

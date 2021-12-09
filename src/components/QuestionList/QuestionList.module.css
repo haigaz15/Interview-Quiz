@@ -12,34 +12,11 @@
     height: 175.9980010986328px;
     width: 188px;
     left: 40px;
-    top: 40.00201416015625px;
+    top: 10.00201416015625px;
     border-radius: 0px;
     position: fixed;
 
 }
-
-.EasyIntrCont{
-    
-    height: 19px;
-    width: 188px;
-    position: absolute;
-    left: 3.12%;
-    right: 87.03%;
-    top: 5%;
-    bottom: 92.62%;
-    
-}
-
-.EasyIntr{
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 19px;
-    color: #4E65C4;
-}
-
-
 
 .CandidatesCont{
     position: absolute;

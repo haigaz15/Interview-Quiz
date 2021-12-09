@@ -1,46 +1,62 @@
-import React from 'react';
+import {React,useState} from 'react';
 import { Typography,Box, Grid, CardContent,Card,Select,MenuItem,FormControl } from '@mui/material';
 import styles from './Questions.module.css'
 import AddIcon from '@mui/icons-material/Add';
 import AddNewQuestion from '../AddNewQuestion/AddNewQuestion'
 import { useDispatch, useSelector } from 'react-redux';
-import {setFilteredLevel, setOpen,setFilteredData} from '../../../redux/questions-slice'
+import {setFilteredLevel,setFilteredData,setOpen,setFilteredSkill} from '../../../redux/questions-slice'
+import AddCircle from '../AddCircle/AddCircle'
 
 
 const Questions = (props) => {
 
   const filteredData = useSelector(state=>state.question.filteredData);
   const questionData = useSelector(state=>state.question.questionData);
-  
+  const filteredLevel = useSelector(state=>state.question.filteredLevel);
+  const filteredSkill = useSelector(state=>state.question.filteredSkill);
+
   const dispatch = useDispatch();
 
   const handleLevel = (e) =>{
-    if(e.target.value !== 'All'){
-    const filtered = questionData.filter(i => i.level === e.target.value);
-    dispatch(setFilteredData(filtered));
-    dispatch(setFilteredLevel(e.target.value));
-    }
-    else{
-      dispatch(setFilteredData(questionData));
+    
+    const filtered = questionData.filter(i => i.level === e.target.value && filteredSkill === i.skill);
+      if(filtered.length === 0){
+        dispatch(setFilteredData(questionData))
+        dispatch(setFilteredLevel(e.target.value));
+      }else{
+      dispatch(setFilteredData(filtered));
       dispatch(setFilteredLevel(e.target.value));
-    }
+      }
+    
   }
 
-  // const handleSkill = (e) =>{ 
-  //   setSkill(e.target.value);
-  // }
+  const handleSkill = (e) =>{ 
+
+      const filtered = questionData.filter(i => i.skill === e.target.value && filteredLevel === i.level);
+
+      if(filtered.length === 0){
+        dispatch(setFilteredData(questionData))
+        dispatch(setFilteredSkill(e.target.value));
+      }else{
+      dispatch(setFilteredData(filtered));
+      dispatch(setFilteredSkill(e.target.value));
+      }
+    
+  }
 
     return(
-    <div>
-      <Box className = {styles.header}>
-        <FormControl variant="standard">
+    <div style={{marginTop:"-7%"}}>
+      {/* <Box className = {styles.header}> */}
+      <Grid container  sx={{ml:32, mt:-10}} xs={4} sm={4}>
+        {/* <FormControl variant="standard"> */}
+        <Grid item xs= {6}>
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
           //value={level}
           label="level"
           onChange={handleLevel}
-          style={{width:115,height:30,borderRadius:"4%",backgroundColor:"#D5E1FD"}}
+          style={{width:"40%",height:"50%",borderRadius:"4%",backgroundColor:"#D5E1FD"}}
         >
           <MenuItem value="All">
             <em>All</em>
@@ -49,28 +65,32 @@ const Questions = (props) => {
             <MenuItem value={level.value}>{level.label}</MenuItem>
           )}
         </Select>
-        </FormControl>
+        </Grid>
+        {/* </FormControl> */}
+        <Grid item  xs= {6}>
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
           //value={skill}
           label="Age"
           variant="standard"
-          //onChange={handleSkill}
-          style={{width:191,height:30,marginLeft:"20px",borderRadius:"4%",backgroundColor:"#D5E1FD"}}
+          onChange={handleSkill}
+          style={{width:"60%",height:"50%",borderRadius:"4%",marginLeft:"-50%",backgroundColor:"#D5E1FD"}}
         >
           <MenuItem value="All">
             <em>All</em>
           </MenuItem>
-          {/* {props.skills.map(skill =>
+          {props.skills.map(skill =>
             <MenuItem value={skill.value}>{skill.label}</MenuItem>
-          )} */}
+          )}
         </Select>
-      </Box>
-      <Box style={{width:"800px",marginTop:"70px",marginLeft:"40px"}}>
-      <Grid container  rowSpacing={4} sx={{ml:32, mt:-10}}>
+        </Grid>
+        </Grid>
+      {/* </Box> */}
+      <Box>
+      <Grid container  rowSpacing={7} sx={{ml:32, mt:-10}} xs={5} sm={5} md={7}>
       {filteredData.map((d,index) =>
-      <Grid item xs={3} sm={4} md={8} lg={8} xl={12} key={d.id}>
+      <Grid item xs={12}  key={d.id}>
                 <Card>
                   <CardContent>
                    <Box className={styles.content} style={{marginTop:"10px"}}>
@@ -97,15 +117,14 @@ const Questions = (props) => {
         </Grid>
         )}
      </Grid>
-     </Box>
-      <Box className = {styles.AddCircle} onClick={ () => {dispatch(setOpen(true))} } position="fixed">
+    </Box>
+    <Box className = {styles.AddCircle} onClick={ () => {dispatch(setOpen(true))} } position="fixed">
       <AddIcon fontSize="large" sx={{ color: "#FFFFFF" }} className = {styles.AddIcond}/> 
     </Box>
-      <AddNewQuestion 
+    <AddNewQuestion
       skills={props.skills}
       levels={props.levels}
-      />
-
+    />
     </div>
     )
 }

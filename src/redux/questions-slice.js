@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {data} from '../datas/datas'
-const initialState = {level: '', skill:'' , question: '', open:false, questionData:data,filteredData:data,filteredLevel:''}
+const initialState = {level: '', skill:'' , question: '', open:false, questionData:data,filteredData:data,filteredLevel:'',filteredSkill:''}
 const questionSlice = createSlice(
     {
     name:'questions',
@@ -26,12 +26,15 @@ const questionSlice = createSlice(
         },
         setFilteredLevel : (state,action) => {
             state.filteredLevel = action.payload;
+        },
+        setFilteredSkill: (state,action) => {
+            state.filteredSkill = action.payload
         }
     }
 })
 
 
 
-export const {handleLevel,handleSkill,handleQuestion,setOpen,setQuestionData,setFilteredData,setFilteredLevel} = questionSlice.actions
+export const {handleLevel,handleSkill,handleQuestion,setOpen,setQuestionData,setFilteredData,setFilteredLevel,setFilteredSkill} = questionSlice.actions
 
 export default questionSlice.reducer;

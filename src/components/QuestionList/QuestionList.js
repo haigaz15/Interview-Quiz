@@ -11,6 +11,7 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import SettingsIcon from '@mui/icons-material/Settings';
 import styles from './QuestionList.module.css';
+import Header from './Header/Header';
 import Questions from './Questions/Questions';
 import Candidates from './Candidates/Candidates';
 import { useSelector, useDispatch } from 'react-redux';
@@ -44,10 +45,8 @@ const QuestionList = () => {
   const UI = () => {
     return (
       <Box className={styles.root}>
+        <Header/>
         <List className={styles.LeftMenu}>
-          <Box className={styles.Group134}>
-            <Typography className={styles.EasyIntr}>EASY INTERVIEW</Typography>
-          </Box>
           <ListItemButton
             className={styles.CandidatesCont}
             onClick={handleCandidates}

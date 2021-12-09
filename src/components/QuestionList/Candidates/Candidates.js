@@ -12,7 +12,7 @@ import AddIcon from '@mui/icons-material/Add';
 import styles from './Candidates.module.css';
 import AddNewCandidate from '../AddNewCandidate/AddNewCandidate';
 import { useSelector } from 'react-redux';
-
+import AddCircle from '../AddCircle/AddCircle'
 const Candidates = (props) => {
   
   const handleOpen = () => setOpen(true);
@@ -22,7 +22,7 @@ const Candidates = (props) => {
   return (
     <div>
       {console.log(candidatesData)}
-      <Box style={{ width: '800px', marginLeft: '40px' }}>
+      <Box style={{ width: '800px', marginTop:'-8.5%' }}>
         <Grid container rowSpacing={3} sx={{ ml: 32, mt: -10 }}>
           {candidatesData.map((d, index) => (
             <Grid item xs={3} sm={4} md={8} lg={8} xl={12}>
@@ -89,13 +89,14 @@ const Candidates = (props) => {
           ))}
         </Grid>
       </Box>
-      <Box className={styles.AddCircle} onClick={handleOpen} position="fixed">
+      {/* <Box className={styles.AddCircle} onClick={handleOpen} position="fixed">
         <AddIcon
           fontSize="large"
           sx={{ color: '#FFFFFF' }}
           className={styles.AddIcond}
         />
-      </Box>
+      </Box> */}
+      <AddCircle handleOpen={handleOpen}/>
       <AddNewCandidate open={open} handleClose={handleClose} />
     </div>
   );

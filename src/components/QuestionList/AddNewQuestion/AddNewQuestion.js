@@ -15,8 +15,7 @@ import nextId from "react-id-generator";
 const AddNewQuestion = (props) => {
 
 const dispatch = useDispatch();
-
-const open = useSelector(state=>state.question.open)
+const open = useSelector(state=> state.question.open)
 
 const handleChangeLevel = (event) => {
   dispatch(handleLevel(event.target.value));
@@ -37,7 +36,7 @@ const skill = useSelector(state=>state.question.skill);
 const question = useSelector(state=>state.question.question);
 const filteredData = useSelector(state=>state.question.filteredData);
 const filteredLevel = useSelector(state=>state.question.filteredLevel);
-
+const filteredSkill = useSelector(state=>state.question.filteredSkill);
 const handleSubmit = (e) =>{
   let temp = questionData
   let addedData = {
@@ -49,8 +48,17 @@ const handleSubmit = (e) =>{
     let newtemp = [...temp,addedData];
     dispatch(setQuestionData(newtemp));
     dispatch(setOpen(false));
-   if(filteredLevel !== 'All'){
-    if(addedData.level === filteredLevel){
+   if(filteredLevel !== 'All' ){
+    if(addedData.level === filteredLevel && filteredSkill === addedData.skill){
+      const  temp2 = filteredData
+      dispatch(setFilteredData([...temp2,addedData]));
+    }
+  } 
+  else{
+    dispatch(setFilteredData(newtemp))
+  }
+  if(filteredSkill !== 'All' ){
+    if(addedData.skill === filteredSkill && filteredLevel === addedData.level){
       const  temp2 = filteredData
       dispatch(setFilteredData([...temp2,addedData]));
     }
@@ -130,7 +138,7 @@ const handleSubmit = (e) =>{
                 marginLeft:'20px',
                 backgroundColor: '#4B63CB',
               }}
-              onClick={()=>dispatch(setOpen(false))}
+              onClick={() => dispatch(setOpen(false))}
             >
               cancel
             </Button>

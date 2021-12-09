@@ -8,25 +8,26 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import InputLabel from '@mui/material/InputLabel';
-import { Field, Form, Formik } from 'formik';
+import { Field, Form, Formik, useFormik } from 'formik';
 import { object, string } from 'yup';
 import styles from './Login.module.css';
 import { useHistory } from 'react-router-dom';
-
+import Header from '../QuestionList/Header/Header';
+import users from '../../users/users'
 export default function SignIn() {
 
+
   const history = useHistory();
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    history.push('/QuestionList');
-  };
 
-  const initialValues = {
-    email: '',
-    password: '',
-  };
-
+  const initialValues =  {
+     email: '',
+     password: '',
+  }
+  
+  
   return (
+    <div>
+    <Header/>
     <Box className={styles.contMain}>
       <Formik
         initialValues={initialValues}
@@ -38,9 +39,16 @@ export default function SignIn() {
         })}
         onSubmit={(values, formikHelpers) => {
           formikHelpers.resetForm();
+          if(users[0].email === values.email && users[0].password === values.password){
+            history.push('/QuestionList')
+          }else{
+            alert('Wrong admin!!')
+          }
         }}
+        
       >
-        {({ errors, isValid, touched, dirty }) => (
+        
+        {({ errors, isValid, touched, dirty,handleSubmit,handleChange }) => (
           <Form>
             <Grid
               container
@@ -77,6 +85,7 @@ export default function SignIn() {
                     as={TextField}
                     error={Boolean(errors.email) && Boolean(touched.email)}
                     helperText={Boolean(touched.email) && errors.email}
+                    onChange={handleChange}
                   />
                 </Grid>
                 <InputLabel shrink htmlFor="password" sx={{ mt: 3 }}>
@@ -100,6 +109,7 @@ export default function SignIn() {
                       Boolean(errors.password) && Boolean(touched.password)
                     }
                     helperText={Boolean(touched.password) && errors.password}
+                    onChange={handleChange}
                   />
                 </Grid>
                 <FormControlLabel
@@ -140,5 +150,6 @@ export default function SignIn() {
         )}
       </Formik>
     </Box>
+    </div>
   );
 }
